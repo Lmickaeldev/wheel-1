@@ -1,4 +1,5 @@
 let segments = [];
+let allSegments = [];
 
 const wheelGroup = document.getElementById("wheelGroup");
 const defs = document.getElementById("svgDefs");
@@ -76,7 +77,9 @@ function addNames() {
     .split("\n")
     .map((n) => n.trim())
     .filter((n) => n.length > 0);
-  segments.push(...names.slice(0, 100 - segments.length));
+
+  segments = names.slice(0, 100); // max 100
+  allSegments = [...segments]; // copie propre
   drawWheel();
 }
 
@@ -103,11 +106,11 @@ function startSpin() {
       winnerDisplay.innerHTML = `
               <img src="${
                 document.querySelector("#centerLogo img").src
-              }" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px;" />
+              }" style="width: 60px; height: 60px; vertical-align: middle; margin-right: 10px;" />
               <span>GAGNANT : ${selected}</span>
               <img src="${
                 document.querySelector("#centerLogo img").src
-              }" style="width: 40px; height: 40px; vertical-align: middle; margin-left: 10px;" />
+              }" style="width: 60px; height: 60px; vertical-align: middle; margin-left: 10px;" />
             `;
       winnerDisplay.style.display = "flex";
     } else {
@@ -120,11 +123,11 @@ function startSpin() {
           winnerDisplay.innerHTML = `
                       <img src="${
                         document.querySelector("#centerLogo img").src
-                      }" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px;" />
+                      }" style="width: 60px; height: 60px; vertical-align: middle; margin-right: 10px;" />
                       <span>GAGNANT : ${segments[0]}</span>
                       <img src="${
                         document.querySelector("#centerLogo img").src
-                      }" style="width: 40px; height: 40px; vertical-align: middle; margin-left: 10px;" />
+                      }" style="width: 60px; height: 60px; vertical-align: middle; margin-left: 10px;" />
                     `;
           winnerDisplay.style.display = "flex";
         }, 1500);
@@ -153,5 +156,15 @@ function changerCouleurs() {
 <stop offset="0%" stop-color="${c1}" />
 <stop offset="100%" stop-color="${c2}" />
 `;
+  drawWheel();
+}
+function resetWheel() {
+  if (allSegments.length === 0) return; // rien à remettre
+
+  segments = [...allSegments]; // on restaure tous les noms
+  currentRotation = 0;
+  wheelGroup.style.transform = `rotate(0deg)`;
+  result.textContent = "";
+  winnerDisplay.style.display = "none";
   drawWheel();
 }
