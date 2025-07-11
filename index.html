@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Roulette Néon - Ultima RP</title>
+    <link rel="stylesheet" href="style.css" />
+    
+</head>
+
+<body>
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <svg id="wheel" viewBox="0 0 400 400">
+            <defs id="svgDefs"></defs>
+            <g id="wheelGroup"></g>
+        </svg>
+        <div id="centerLogo">
+            <img src="https://github.com/Lmickaeldev/ultima_ov/blob/main/images/ultimarp_logo_trans.png?raw=true"
+                alt="Logo Ultima RP">
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <div class="controls">
+        <h2>Ajouter des noms</h2>
+        <textarea id="namesInput" placeholder="Collez ici plusieurs noms, un par ligne..."></textarea>
+        <button onclick="addNames()">Ajouter les noms</button>
+        <button onclick="startSpin()">🎯 Lancer la roue</button>
+        <h3>Personnalisation</h3>
+        <label>Image du centre :</label>
+        <input type="text" id="logoUrlInput" placeholder="URL de l'image" />
+        <button onclick="changerLogo()">Changer l'image</button>
+
+        <label>Couleur intérieure :</label>
+        <input type="color" id="couleur1" value="#964085" />
+        <label>Couleur extérieure :</label>
+        <input type="color" id="couleur2" value="#000000" />
+        <button onclick="changerCouleurs()">Changer les couleurs</button>
+    </div>
+
+    <div id="winnerDisplay"></div>
+
+
+    <script src="wheel.js"></script>
+</body>
+
+</html>
