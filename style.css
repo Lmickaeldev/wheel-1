@@ -11,6 +11,10 @@ h2 {
     color: #Fff;
     margin: 0;
 }
+label {
+    color: #FFF;
+    font-weight: bold;
+}
 .wheel-container {
     flex: 1;
     display: flex;
