@@ -81,8 +81,9 @@ function addNames() {
 }
 
 function startSpin() {
-  if (segments.length < 2) return;
+  if (segments.length < 1) return;
 
+  const mode = document.getElementById("modeSelect").value;
   const angleStep = 360 / segments.length;
   const extraSpins = 5;
   const randomDegrees = Math.floor(Math.random() * 360);
@@ -97,27 +98,43 @@ function startSpin() {
     const index = Math.floor(angleAtPointer / angleStep);
     const selected = segments[index];
 
-    result.textContent = `${selected} vient de quitter la roue.`;
-    segments.splice(index, 1);
-
-    if (segments.length === 1) {
-      setTimeout(() => {
-        winnerDisplay.innerHTML = `
-  <img src="${
-    document.querySelector("#centerLogo img").src
-  }" alt="logo" style="width: 60px; height: 60px; vertical-align: middle; margin-right: 10px;" />
-  <span>GAGNANT : ${segments[0]}</span>
-  <img src="${
-    document.querySelector("#centerLogo img").src
-  }" alt="logo" style="width: 60px; height: 60px; vertical-align: middle; margin-left: 10px;" />
-`;
-        winnerDisplay.style.display = "flex";
-      }, 1500);
+    if (mode === "gagnant") {
+      // Affiche simplement le gagnant, ne le retire pas
+      winnerDisplay.innerHTML = `
+              <img src="${
+                document.querySelector("#centerLogo img").src
+              }" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px;" />
+              <span>GAGNANT : ${selected}</span>
+              <img src="${
+                document.querySelector("#centerLogo img").src
+              }" style="width: 40px; height: 40px; vertical-align: middle; margin-left: 10px;" />
+            `;
+      winnerDisplay.style.display = "flex";
     } else {
-      drawWheel();
+      // Éliminatoire : on enlève le joueur
+      result.textContent = `${selected} vient de quitter la roue.`;
+      segments.splice(index, 1);
+
+      if (segments.length === 1) {
+        setTimeout(() => {
+          winnerDisplay.innerHTML = `
+                      <img src="${
+                        document.querySelector("#centerLogo img").src
+                      }" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px;" />
+                      <span>GAGNANT : ${segments[0]}</span>
+                      <img src="${
+                        document.querySelector("#centerLogo img").src
+                      }" style="width: 40px; height: 40px; vertical-align: middle; margin-left: 10px;" />
+                    `;
+          winnerDisplay.style.display = "flex";
+        }, 1500);
+      } else {
+        drawWheel();
+      }
     }
   }, 5000);
 }
+
 
 drawWheel();
 
